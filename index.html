@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Explorer Assignment V2</title>
+    <script src="./utils.js"></script>
+    <script src="./store.js"></script>
+    <script src="./operations.js"></script>
+    <script src="./main.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body onload="renderHTML(store)">
+    <div class="wrapper">
+        <input type="text" class="nameInputBox" placeholder="Enter File/Folder name here" id="fileName" oninput="checkFileName(event)">
+        <span class="error" id = "error"></span>
+        <div class="fileExplorer">
+            <div>
+                <div id = "0" class="folder">
+                    <span class="rotate" onclick="toggleButton(this)">&#10148;</span>
+                    <span class="folderName" id="root">Root</span>
+                    <span id="createFolderBtn" class="createFolderBtn" onclick="createFolder(this)">&#128193;</span>
+                    <span id="createFileBtn" class="createFileBtn" onclick="createFile(this)">&#128196;</span>
+                    <div></div>
+                </div>
+            </div>
+       </div>
+    </div>
+</body>
+</html>
