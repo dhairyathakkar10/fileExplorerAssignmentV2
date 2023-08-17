@@ -72,6 +72,10 @@ const dataStore = {
                 document.getElementById(idToHide).lastElementChild.style.display = ""
                 document.getElementById(idToHide).firstElementChild.className="rotate"
             }
+        }else if(action.type === "rename"){
+            renameItem(dataStore.state, action.id)
+            document.getElementById('wrapper').lastElementChild.innerHTML = "";
+            CounterView.render(document.getElementById('wrapper').lastElementChild, dataStore.state)
         }
     },
     emitChanges(){
@@ -160,6 +164,12 @@ function toggle(elem){
         id : elem.parentNode.id
     }
 }
+function rename(elem){
+    return{
+        type:"rename",
+        id:elem.parentNode.id
+    }
+}
 
 function createFolderEventListener(elem){
     Dispatcher.dispatch(createFolder(elem))
@@ -172,4 +182,7 @@ function deleteFEventListener(elem){
 }
 function toggleButton(elem){
     Dispatcher.dispatch(toggle(elem));
+}
+function renameEventListener(elem){
+    Dispatcher.dispatch(rename(elem))
 }

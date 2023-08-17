@@ -48,6 +48,7 @@ function checkFileName(event){
     }
 }
 function createFolderElem(obj){
+    console.log(obj);
     let name = obj.name;
     let id = obj.id;
     let div = document.createElement("div")
@@ -75,7 +76,7 @@ function createFolderElem(obj){
     let renameIcon = document.createElement("span")
     renameIcon.className = "rename"
     renameIcon.id="rename"
-    renameIcon.setAttribute("onclick", "rename(this)")
+    renameIcon.setAttribute("onclick", "renameEventListener(this)")
     renameIcon.innerHTML = "&#9998;"
     div.appendChild(arrow);
     div.appendChild(fodlerName)
@@ -102,7 +103,7 @@ function createFileElem(obj){
     let renameIcon = document.createElement("span")
     renameIcon.className = "rename"
     renameIcon.id="rename"
-    renameIcon.setAttribute("onclick", "rename(this)")
+    renameIcon.setAttribute("onclick", "renameEventListener(this)")
     renameIcon.innerHTML = "&#9998;"
     div.appendChild(fileName)
     div.appendChild(renameIcon)
@@ -148,4 +149,21 @@ function updateChildren(folderList, index, obj){
             push_item(item.children, index, obj)
         }
     }
+}
+function renameItem(folderList, index){
+    let a = window.prompt("Enter new File / FolderName");
+    console.log(a);
+    if(a === "" || a===null){
+        return;
+    }
+    while(!checkFileName(a)){
+        window.alert("File name should not be grater than 10 char and should not contain a numnber");
+        a = window.prompt("Please try again!");
+    }
+    for (let item of folderList) {
+        if(item.id == index){
+            item.name = a;
+        }
+    }
+    console.log(folderList);
 }
