@@ -75,7 +75,7 @@ const dataStore = {
                 document.getElementById(idToHide).firstElementChild.className="rotate"
             }
         }else if(action.type === "rename"){
-            renameItem(dataStore.state, action.id)
+            renameItem(dataStore.state, action.id, action.parentId)
             document.getElementById('wrapper').lastElementChild.innerHTML = "";
             CounterView.render(document.getElementById('wrapper').lastElementChild, dataStore.state)
         }
@@ -183,7 +183,8 @@ function toggle(elem){
 function rename(elem){
     return{
         type:"rename",
-        id:elem.parentNode.id
+        id:elem.parentNode.id,
+        parentId:elem.parentNode.parentNode.id,
     }
 }
 

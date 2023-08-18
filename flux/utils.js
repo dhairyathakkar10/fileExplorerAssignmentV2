@@ -150,11 +150,18 @@ function updateChildren(folderList, index, obj){
         }
     }
 }
-function renameItem(folderList, index){
+function renameItem(folderList, index, parentId){
     let a = window.prompt("Enter new File / FolderName");
     console.log(a);
     if(a === "" || a===null){
         return;
+    }
+    let parentObj = findItem(folderList, parentId);
+    for(const child of parentObj.children){
+        if(child.name === a){
+            alert("Folder/File with this name already exists in this Folder!, Please try a different name!");
+            return;
+        }
     }
     while(!checkFileName(a)){
         window.alert("File name should not be grater than 10 char and should not contain a numnber");
