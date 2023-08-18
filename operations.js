@@ -20,7 +20,6 @@ function findItem (folderList, index){
         }
     }
     return null;
-
 }
 function push_item(folderList, index, obj){
     console.log(obj);
@@ -133,17 +132,17 @@ function toggleButton(elem){
         document.getElementById(idToHide).firstElementChild.className="rotate"
     }
 }
-function updateChildren(folderList, index, obj){
-    for (let item of folderList) {
-        if (item.id == index) {
-            item.children = obj
-            break;
-        }
-        if (item.type == "folder") {
-            push_item(item.children, index, obj)
-        }
-    }
-}
+// function updateChildren(folderList, index, obj){
+//     for (let item of folderList) {
+//         if (item.id == index) {
+//             item.children = obj
+//             break;
+//         }
+//         if (item.type == "folder") {
+//             push_item(item.children, index, obj)
+//         }
+//     }
+// }
 function deleteF(elem){
     let elemId = elem.parentNode.id;
     let parentId = findItem(store, elemId).parentNodeid;
@@ -154,7 +153,6 @@ function deleteF(elem){
         }
     }
     document.getElementById(elemId).remove();
-    updateChildren(store, parentId, sibling);
     console.log(store);
 }
 function rename(elem){

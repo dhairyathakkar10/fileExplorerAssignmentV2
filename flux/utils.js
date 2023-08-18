@@ -146,7 +146,7 @@ function updateChildren(folderList, index, obj){
             break;
         }
         if (item.type == "folder") {
-            push_item(item.children, index, obj)
+            updateChildren(item.children, index, obj)
         }
     }
 }

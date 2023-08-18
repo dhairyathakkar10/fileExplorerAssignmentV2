@@ -53,19 +53,21 @@ const dataStore = {
                 return;
             }
             let siblings = findItem(dataStore.getState(), parentId).children;
+            console.log(siblings);
             for(let i=0; i<siblings.length; i++){
                 if(siblings[i].id == elemId){
                     siblings.splice(i, 1);
                     break;
                 }
             }
+            console.log(siblings);
             updateChildren(dataStore.state, parentId, siblings);
+            console.log(this.state)
             document.getElementById('wrapper').lastElementChild.innerHTML = "";
             CounterView.render(document.getElementById('wrapper').lastElementChild, dataStore.state)
         } else if(action.type  === "toggle"){
             let idToHide = action.id;
             if(document.getElementById(idToHide).lastElementChild.style.display === ""){
-                console.log("Hii")
                 document.getElementById(idToHide).lastElementChild.style.display = "none"
                 document.getElementById(idToHide).firstElementChild.className="normal"
             }else{
@@ -116,12 +118,19 @@ Dispatcher.register(dataStore.handleAction.bind(dataStore));
 function createFolder(elem){
     let parentNodeId = elem.parentNode.id;
     let parentNode = findItem(dataStore.state, parentNodeId);
+    let newName = document.getElementById("fileName").value;
+    for(const child of parentNode.children){
+        if(child.name === newName){
+            alert("Folder/File with this name already exists in this Folder!, Please try a different name!");
+            return null;
+        }
+    }
     console.log(parentNode);
     newObj = {
         id: genetareId(),
         level: parentNode.level + 1,
         parentNodeid:parentNodeId,
-        name: document.getElementById("fileName").value,
+        name: newName,
         type: "folder",
         children: []
     }
@@ -134,12 +143,19 @@ function createFolder(elem){
 function createFile(elem){
     let parentNodeId = elem.parentNode.id;
     let parentNode = findItem(dataStore.state, parentNodeId);
+    let newName = document.getElementById("fileName").value;
+    for(const child of parentNode.children){
+        if(child.name === newName){
+            alert("Folder/File with this name already exists in this Folder!, Please try a different name!");
+            return null;
+        }
+    }
     console.log(parentNode);
     newObj = {
         id: genetareId(),
         level: parentNode.level + 1,
         parentNodeid:parentNodeId,
-        name: document.getElementById("fileName").value,
+        name: newName,
         type: "file",
         children: null
     }
@@ -172,10 +188,16 @@ function rename(elem){
 }
 
 function createFolderEventListener(elem){
-    Dispatcher.dispatch(createFolder(elem))
+    if(createFolder(elem)){
+        Dispatcher.dispatch(createFolder(elem))
+    }
+    
 }
 function createFileEventListener(elem){
-    Dispatcher.dispatch(createFile(elem))
+    if(createFile(elem)){
+        Dispatcher.dispatch(createFile(elem))
+    }
+    
 }
 function deleteFEventListener(elem){
     Dispatcher.dispatch(deleteF(elem));
